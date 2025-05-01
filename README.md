@@ -1,10 +1,3 @@
-### ✅ Solução:
-Remova o bloco externo ```markdown e mantenha os internos. O GitHub **já reconhece o arquivo `README.md` como Markdown**, então você não precisa colocar tudo entre ```markdown.
-
-Aqui está a versão **corrigida e renderizável corretamente no GitHub** — copie e cole isso direto no seu `README.md`:
-
----
-
 # 📦 API com MongoDB
 
 Este é um projeto de API RESTful desenvolvida com **Spring Boot** e **MongoDB**, com foco em operações CRUD para usuários e posts, incluindo comentários e autores.
