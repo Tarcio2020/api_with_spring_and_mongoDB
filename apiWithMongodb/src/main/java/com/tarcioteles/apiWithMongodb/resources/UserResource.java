@@ -39,7 +39,7 @@ public class UserResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
 	    Optional<User> user = userService.findById(id); 
-	    return user.map(value -> ResponseEntity.ok().body(new UserDTO(value)))
+	    return user.map(x -> ResponseEntity.ok().body(new UserDTO(x)))
 	               .orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
