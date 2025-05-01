@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.tarcioteles.apiWithMongodb.domain.Post;
 import com.tarcioteles.apiWithMongodb.domain.User;
 import com.tarcioteles.apiWithMongodb.dto.AuthorDTO;
+import com.tarcioteles.apiWithMongodb.dto.CommentDTO;
 import com.tarcioteles.apiWithMongodb.repositories.PostRepository;
 import com.tarcioteles.apiWithMongodb.repositories.UserRepository;
 
@@ -41,9 +42,19 @@ public class Instatiation implements CommandLineRunner {
 		Post post2 = new Post(null, sdf.parse("10/04/2018"), "Dia de churrasco", "Hoje tem churrasco com os amigos!", new AuthorDTO(alex));
 		Post post3 = new Post(null, sdf.parse("05/05/2018"), "Estudando Java", "Aprendendo mais sobre orientação a objetos.", new AuthorDTO(bob));
 		Post post4 = new Post(null, sdf.parse("15/06/2018"), "Fim de semana na praia", "Aproveitando o sol e o mar com a família.", new AuthorDTO(bob));
+		
+		CommentDTO c1 = new CommentDTO("Boa viagem mano!!!", sdf.parse("21/08/2018"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveita bem!", sdf.parse("22/08/2018"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Manda fotos depois!", sdf.parse("23/08/2018"), new AuthorDTO(maria));
+		CommentDTO c4 = new CommentDTO("Churrasco top demais!", sdf.parse("11/04/2018"), new AuthorDTO(maria));
+		CommentDTO c5 = new CommentDTO("Java é vida!", sdf.parse("06/05/2018"), new AuthorDTO(alex));
+
+		post1.getCommentDTO().addAll(Arrays.asList(c1, c2));
+		post2.getCommentDTO().addAll(Arrays.asList(c3, c4));
+		post3.getCommentDTO().addAll(Arrays.asList(c5));
+		post4.getCommentDTO().addAll(Arrays.asList(c1, c3));
 
 		postRepository.saveAll(Arrays.asList(post1, post2, post3, post4));
-		
 		maria.getPosts().addAll(Arrays.asList(post1, post2));
 		userRepository.save(maria);
 

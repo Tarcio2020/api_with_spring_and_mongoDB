@@ -1,13 +1,16 @@
 package com.tarcioteles.apiWithMongodb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.tarcioteles.apiWithMongodb.dto.AuthorDTO;
+import com.tarcioteles.apiWithMongodb.dto.CommentDTO;
 
 @Document
 public class Post implements Serializable{
@@ -19,6 +22,8 @@ public class Post implements Serializable{
 	private String title;
 	private String body;
 	private AuthorDTO author;
+	
+	private List<CommentDTO> commentDTO = new ArrayList<>();
 	
 	public Post(){
 	}
@@ -63,11 +68,6 @@ public class Post implements Serializable{
 		this.body = body;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-	
 	public AuthorDTO getAuthor() {
 		return author;
 	}
@@ -75,7 +75,20 @@ public class Post implements Serializable{
 	public void setAuthor(AuthorDTO author) {
 		this.author = author;
 	}
+	
+	public List<CommentDTO> getCommentDTO() {
+		return commentDTO;
+	}
+	
+	public void setCommentDTO(List<CommentDTO> commentDTO) {
+		this.commentDTO = commentDTO;
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,6 +100,7 @@ public class Post implements Serializable{
 		Post other = (Post) obj;
 		return Objects.equals(id, other.id);
 	}
+
 
 		
 }
