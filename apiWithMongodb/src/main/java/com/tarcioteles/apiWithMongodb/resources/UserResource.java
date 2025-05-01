@@ -2,7 +2,6 @@ package com.tarcioteles.apiWithMongodb.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.tarcioteles.apiWithMongodb.domain.Post;
 import com.tarcioteles.apiWithMongodb.domain.User;
 import com.tarcioteles.apiWithMongodb.dto.UserDTO;
 import com.tarcioteles.apiWithMongodb.services.UserService;
@@ -38,10 +38,10 @@ public class UserResource {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-	    Optional<User> user = userService.findById(id); 
-	    return user.map(x -> ResponseEntity.ok().body(new UserDTO(x)))
-	               .orElseGet(() -> ResponseEntity.notFound().build());
+	    User user = userService.findById(id); 
+	    return ResponseEntity.ok().body(new UserDTO(user));
 	}
+
 
 	@PostMapping
 	public ResponseEntity<Void> create(@RequestBody UserDTO objDto) {
@@ -68,6 +68,12 @@ public class UserResource {
 	    obj.setId(id); // garante que o ID da URL prevaleça
 	    userService.update(obj);
 	    return ResponseEntity.noContent().build(); // 204 No Content
+	}
+	
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+	    User obj = userService.findById(id); 
+	    return ResponseEntity.ok().body(obj.getPosts());
 	}
 
 
